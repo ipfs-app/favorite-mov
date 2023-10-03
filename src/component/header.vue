@@ -11,8 +11,8 @@
           <li class="nav-item">
             <a class="nav-link disabled" href="#">数据库：</a>
           </li>
-          <li class="nav-item" v-for="db in nav_db" >
-            <a class="nav-link" href="#">{{ db.title }}</a>
+          <li class="nav-item" v-for="db in nav_db">
+            <a class="nav-link" href="#" @click="$emit('chang_db', db.address)">{{ db.title }}</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -52,6 +52,7 @@ import { ref, onMounted } from 'vue'
 const username = ref("anonymous")
 const dbs = ref("[]")
 const nav_db = ref([])
+defineEmits(['chang_db'])
 onMounted(() => {
   const configModal = document.getElementById('configModal')
   nav_db.value = JSON.parse(localStorage.getItem("fdbs"))
@@ -59,7 +60,6 @@ onMounted(() => {
     username.value = localStorage.getItem("username")
     dbs.value = JSON.stringify(JSON.parse(localStorage.getItem("fdbs")), null, 2)
   })
-
 })
 function save_config() {
   localStorage.setItem("username", username.value)
